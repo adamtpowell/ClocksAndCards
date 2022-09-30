@@ -240,6 +240,7 @@ function Screen:_updateDrawOffset()
 end
 
 function Screen:_getDesktopDimensions()
+---@diagnostic disable-next-line: param-type-mismatch
   return love.window.toPixels(love.window.getDesktopDimensions())
 end
 
