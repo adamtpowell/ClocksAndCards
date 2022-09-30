@@ -240,6 +240,7 @@ local function write_cdata(value, seen)
 	serialize_value(ty, seen)
 	local len = ffi.sizeof(value)
 	write_number(len)
+---@diagnostic disable-next-line: redundant-parameter
 	Buffer_write_raw(ffi.typeof('$[1]', ty)(value), len)
 end
 
@@ -321,6 +322,7 @@ local function deserialize_value(seen)
 		len = deserialize_value(seen)
 		for _ = 1, len do
 			local key = deserialize_value(seen)
+		---@diagnostic disable-next-line: need-check-nil
 			v[key] = deserialize_value(seen)
 		end
 		if t == 253 then
