@@ -2,7 +2,7 @@ local Pos = require "Pos"
 local BB  = require "BB"
 local Hand = {}
 
-local handWidth = 250
+local CARD_DISTANCE = 20
 
 function Hand.Create(pos)
     local e = u.addId({
@@ -13,10 +13,15 @@ function Hand.Create(pos)
 end
 
 function Hand.Update(e)
+    local j = 0
     for i, card_id in ipairs(e.card_ids) do
+        j = j + 1
+        local card_distance = CARD_WIDTH + CARD_DISTANCE
+
+        local offsetx = (card_distance * (j - 1)) - ((#e.card_ids - 1) * card_distance) / 2
+        local offsetPos = Pos.new(offsetx - CARD_WIDTH / 2, 0)
+
         local card = u.withId(cards, card_id)
-        -- This is wrong but will do for now
-        local offsetPos =  Pos.new(5 + (i - 1) * 60, 0)--Pos.new(e.pos.x - handWidth + (i * (handWidth / #e.card_ids)), e.pos.y)
         card.pos = Pos.add(e.pos, offsetPos)
     end
 end

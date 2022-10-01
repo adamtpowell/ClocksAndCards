@@ -55,7 +55,9 @@ function u.withIds(array, ids)
     -- Very bad loop but whatever
     u.forEach(ids, function(id)
         local e = u.withId(array, id)
-        table.insert(ret, e)
+        if e ~= nil then
+            table.insert(ret, e)
+        end
     end)
 
     return ret
@@ -83,6 +85,16 @@ end
 
 function u.drawBB(e)
     love.graphics.rectangle("line", e.pos.x, e.pos.y, e.bb.width, e.bb.height)
+end
+
+function u.addGears(amount, pos)
+    gears = gears + amount
+    TextParticle.Create(pos, "+" .. amount .. " Gears!")
+end
+
+function u.drawCards(amount, pos)
+    Deck.DrawCard(deck)
+    TextParticle.Create(pos, "+" .. amount .. " Cards!")
 end
 
 

@@ -1,5 +1,7 @@
 local InlaySlot = {}
 
+local inlay_numbers = { "12", "2", "4", "6", "8", "10"}
+
 function InlaySlot.Create(pos)
     local e = {
         number = -1,
@@ -15,18 +17,19 @@ end
 
 function InlaySlot.Update(e)
     u.forEach(u.withIds(inlays, e.inlay_ids), function(inlay, i)
-        local from_center = Pos.vectorDirection(e.angle, CLOCK_RADIUS - i * 30)
+        local from_center = Pos.vectorDirection(e.angle, CLOCK_RADIUS - i * 30 - 30)
         inlay.pos = Pos.add(Pos.add(clock_center, from_center), Pos.new(-10, -10)) -- Move the inlay to the inlay slots position
     end)
 end
 
 function InlaySlot.Draw(e)
-    u.drawBB(e)
-    love.graphics.print(e.number, math.floor(e.pos.x), math.floor(e.pos.y))
+    love.graphics.setFont(clockface_font)
+    love.graphics.print(inlay_numbers[e.number], math.floor(e.pos.x + e.bb.width / 4), math.floor(e.pos.y))
+    love.graphics.setFont(silkscreen)
 end
 
 function InlaySlot.Activate(e)
-    u.forEach(u.withIds(inlays, e.inlay_ids), Inlay.Activate)
+    u.forEach(u.withIds(inlays, e.inlay_ids), function (inlay) Inlay.Activate(inlay, e) end)
 end
 
 function InlaySlot.GetInlay(e, inlay)
@@ -37,7 +40,6 @@ function InlaySlot.HoveredSlot()
     local mouse_pos = Pos.mousePos()
     return u.forEach(inlay_slots, function(slot)
         if BB.collidesWithPoint(slot, mouse_pos) then
-            print("COLLIDED")
             return slot
         end
     end)

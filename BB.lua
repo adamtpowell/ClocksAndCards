@@ -18,5 +18,14 @@ function BB.collidesWithPoint(e, pos)
         pos.y > e.pos.y and pos.y < e.pos.y + e.bb.height
 end
 
+function BB.getHoveredFromArray(array)
+    local mouse_pos = Pos.mousePos()
+    for i, e in ipairs(array) do
+        if BB.collidesWithPoint(e, mouse_pos) then
+            return i, e
+        end
+    end
+end
+
 
 return BB
