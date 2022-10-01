@@ -17,11 +17,19 @@ function Deck.Create(pos)
             CardTypes.makeClock,
             CardTypes.screwdriver,
             CardTypes.screwdriver,
+            CardTypes.screwdriver,
+            CardTypes.makeTrashcan,
             CardTypes.makeTrashcan,
             CardTypes.makeFactory,
             CardTypes.makeFactory,
+            CardTypes.makeFactory,
+            CardTypes.makeSkyscraper,
             CardTypes.makeSkyscraper,
             CardTypes.gearpile,
+            CardTypes.gearpile,
+            CardTypes.makeBridge,
+            CardTypes.makeBridge,
+            CardTypes.makeFangs,
         }
     }
     u.addId(e)
@@ -34,8 +42,7 @@ end
 
 function Deck.DrawCard(e)
     if #hand.card_ids >= HAND_SIZE then
-        TextParticle.Create(e.pos, "Hand full! +50 Gears")
-        gears = gears + 50
+        TextParticle.Create(e.pos, "Hand full!")
         return
     end
     local card_type = love.math.random( 1, #e.card_types )

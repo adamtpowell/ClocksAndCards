@@ -13,6 +13,7 @@ InlaySlot = require "InlaySlot"
 Inlay = require "Inlay"
 InlayTypes = require "InlayTypes"
 TextParticle = require "TextParticle"
+States = require "States"
 
 debug = false
 
@@ -38,7 +39,6 @@ MAX_INLAYS = 5
 left_down = false
 
 hour_hand_time = 0
-
 ------ INITIALIZATION ------
 
 function love.load()
@@ -52,14 +52,12 @@ function love.load()
     cursor = Cursor.Create()
     cursor.holding_id = -1
 
-
-
-    deck = Deck.Create(Pos.new(SCREEN_WIDTH - CARD_WIDTH - 20, 700))
+    deck = Deck.Create(Pos.new(SCREEN_WIDTH - CARD_WIDTH - 40, 700))
 
     time = 0
     total_time = 0
 
-
+    States.Switch("instructions")
 
     clock_center = Pos.new(SCREEN_HEIGHT / 2, SCREEN_HEIGHT / 2 - 50)
 
@@ -94,7 +92,7 @@ function love.load()
     table.insert(inlay_slots[4].inlay_ids, new_inlay.id)
     table.insert(inlays, new_inlay)
 
-    gears = 1000
+    gears = 750
 
     text_particles = {}
 end

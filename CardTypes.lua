@@ -71,15 +71,15 @@ local CardTypes = {
                 end
                 return true
              end,
-             price = 400
+             price = 1000
         } end
     },
     makeBridge = {
         new = function() return {
             name = "Bridge",
-            desc = "Make a bridge which makes 150 gears, and also draws a card if both adjacent numbers have inlays.",
+            desc = "Make a bridge which makes 100 gears, and also draws a card if both adjacent numbers have inlays.",
             action = function()
-                return placeInlay(InlayTypes.clock)
+                return placeInlay(InlayTypes.bridge)
              end,
              price = 300
         } end
@@ -87,9 +87,9 @@ local CardTypes = {
     makeFangs = {
         new = function() return {
             name = "Fangs",
-            desc = "Reduces maximum hand size by 1. Draw two cards when activated.",
+            desc = "When activated, discard your hand and draw that many cards.",
             action = function()
-                return placeInlay(InlayTypes.clock)
+                return placeInlay(InlayTypes.fangs)
              end,
              price = 600
         } end
