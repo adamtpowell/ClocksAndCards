@@ -11,6 +11,7 @@ Deck = require "Deck"
 CardTypes = require "CardTypes"
 InlaySlot = require "InlaySlot"
 Inlay = require "Inlay"
+InlayTypes = require "InlayTypes"
 
 debug = false
 
@@ -68,29 +69,8 @@ function love.load()
     end
 
     inlays = { }
-    local new_inlay = Inlay.Create()
+    local new_inlay = Inlay.Create(InlayTypes.cycle.new())
     table.insert(inlay_slots[1].inlay_ids, new_inlay.id)
-    table.insert(inlays, new_inlay)
-    local new_inlay = Inlay.Create()
-    table.insert(inlay_slots[1].inlay_ids, new_inlay.id)
-    table.insert(inlays, new_inlay)
-    local new_inlay = Inlay.Create()
-    table.insert(inlay_slots[1].inlay_ids, new_inlay.id)
-    table.insert(inlays, new_inlay)
-    local new_inlay = Inlay.Create()
-    table.insert(inlay_slots[1].inlay_ids, new_inlay.id)
-    table.insert(inlays, new_inlay)
-    local new_inlay = Inlay.Create()
-    table.insert(inlay_slots[1].inlay_ids, new_inlay.id)
-    table.insert(inlays, new_inlay)
-    local new_inlay = Inlay.Create()
-    table.insert(inlay_slots[3].inlay_ids, new_inlay.id)
-    table.insert(inlays, new_inlay)
-    local new_inlay = Inlay.Create()
-    table.insert(inlay_slots[3].inlay_ids, new_inlay.id)
-    table.insert(inlays, new_inlay)
-    local new_inlay = Inlay.Create()
-    table.insert(inlay_slots[3].inlay_ids, new_inlay.id)
     table.insert(inlays, new_inlay)
 end
 
@@ -155,11 +135,14 @@ function mouse_press()
     if Cursor.HoldingCard(cursor) then
         local played_card = u.withId(cards, cursor.holding_id)
 
-        -- Its not in cards, but its in card ids
-        u.removeWithId(cards, cursor.holding_id)
-        Cursor.DropCard(cursor)
+        local played = played_card.card_type.action()
 
-       played_card.card_type.action()
+        if played then
+            -- Its not in cards, but its in card ids
+            u.removeWithId(cards, cursor.holding_id)
+            Cursor.DropCard(cursor)
+        end
+
     end
 end
 

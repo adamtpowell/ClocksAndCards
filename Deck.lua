@@ -7,7 +7,7 @@ local Deck = {}
 function Deck.Create(pos)
     local e = {
         pos = pos,
-        card_types = { CardTypes.cycle, CardTypes.draw1, CardTypes.draw1 }
+        card_types = { CardTypes.makeTestInlay}
     }
     u.addId(e)
     BB.addBB(e, CARD_WIDTH, CARD_HEIGHT)

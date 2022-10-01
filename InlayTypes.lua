@@ -1,4 +1,4 @@
-local CardTypes = {
+local InlayTypes = {
     cycle = {
         new = function() return {
             name = "Grandfather Clock",
@@ -11,4 +11,4 @@ local CardTypes = {
     }
 }
 
-return CardTypes
+return InlayTypes

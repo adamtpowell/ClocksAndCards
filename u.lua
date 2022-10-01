@@ -14,7 +14,10 @@ end
 
 function u.forEach(array, func)
     for i, e in ipairs(array) do
-        func(e, i)
+        local res = func(e, i)
+        if res ~= nil then
+            return res
+        end
     end
 end
 

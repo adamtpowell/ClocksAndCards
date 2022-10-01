@@ -8,7 +8,8 @@ function InlaySlot.Create(pos)
         angle = 0,
     }
     u.addId(e)
-    Pos.addPos(e, pos)
+    Pos.addPos(e, Pos.add(pos, Pos.new(-25, -25)))
+    BB.addBB(e, 50, 50)
     return e
 end
 
@@ -20,12 +21,26 @@ function InlaySlot.Update(e)
 end
 
 function InlaySlot.Draw(e)
-    love.graphics.rectangle("line", e.pos.x - 25, e.pos.y - 25, 50, 50)
+    u.drawBB(e)
     love.graphics.print(e.number, math.floor(e.pos.x), math.floor(e.pos.y))
 end
 
 function InlaySlot.Activate(e)
+    u.forEach(u.withIds(inlays, e.inlay_ids), Inlay.Activate)
+end
 
+function InlaySlot.GetInlay(e, inlay)
+    table.insert(e.inlay_ids, inlay.id)
+end
+
+function InlaySlot.HoveredSlot()
+    local mouse_pos = Pos.mousePos()
+    return u.forEach(inlay_slots, function(slot)
+        if BB.collidesWithPoint(slot, mouse_pos) then
+            print("COLLIDED")
+            return slot
+        end
+    end)
 end
 
 return InlaySlot
